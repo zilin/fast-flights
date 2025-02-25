@@ -4,9 +4,10 @@ filter = create_filter(
     flight_data=[
         # Include more if it's not a one-way trip
         FlightData(
-            date="2025-07-01",  # Date of departure
-            from_airport="TPE",  # Departure (airport)
-            to_airport="MYJ",  # Arrival (airport)
+            date="2025-03-14",  # Date of departure
+            airlines=["WN"],
+            from_airport="SFO",  # Departure (airport)
+            to_airport="LAX",  # Arrival (airport)
         )
     ],
     trip="one-way",  # Trip type

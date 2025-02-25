@@ -17,13 +17,15 @@ class FlightData:
         date (str): Date.
         from_airport (str): Departure (airport). Where from?
         to_airport (str): Arrival (airport). Where to?
+        airlines (list(str), optional): A list of airlines. Default is None.
         max_stops (int, optional): Maximum number of stops. Default is None.
     """
 
-    __slots__ = ("date", "from_airport", "to_airport", "max_stops")
+    __slots__ = ("date", "from_airport", "to_airport", "airlines", "max_stops")
     date: str
     from_airport: str
     to_airport: str
+    airlines: Optional[List[str]]
     max_stops: Optional[int]
 
     def __init__(
@@ -32,6 +34,7 @@ class FlightData:
         date: str,
         from_airport: Union[Airport, str],
         to_airport: Union[Airport, str],
+        airlines: Optional[List[str]] = None,
         max_stops: Optional[int] = None,
     ):
         self.date = date
@@ -41,11 +44,14 @@ class FlightData:
         self.to_airport = (
             to_airport.value if isinstance(to_airport, Airport) else to_airport
         )
+        self.airlines = airlines
         self.max_stops = max_stops
 
     def attach(self, info: PB.Info) -> None:  # type: ignore
         data = info.data.add()
         data.date = self.date
+        if self.airlines is not None:
+            data.airlines.extend(self.airlines)
         data.from_flight.airport = self.from_airport
         data.to_flight.airport = self.to_airport
         if self.max_stops is not None:

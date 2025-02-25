@@ -1,6 +1,6 @@
 import argparse
 import json
-from fast_flights import FlightData, Passengers, create_filter, get_flights
+from fast_flights import FlightData, Passengers, create_filter, get_flights_from_filter
 
 def flight_to_dict(flight):
     return {
@@ -67,9 +67,7 @@ def main():
     )
 
     # Get flights with the filter
-    result = get_flights(filter,
-                         inject_eu_cookies=args.inject_eu_cookies
-                         )
+    result = get_flights_from_filter(filter)
 
     try:
         # Manually convert the result to a dictionary before serialization
